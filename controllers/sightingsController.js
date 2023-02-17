@@ -15,6 +15,22 @@ class SightingsController extends BaseController {
       return res.status(400).json({ error: true, msg: err });
     }
   }
+
+  //Create a new sighting
+  async create(req, res) {
+
+    const { date, location, notes } = req.body
+    try {
+      const sighting = await this.model.create({
+        date: new Date(date),
+        location,
+        notes
+      });
+      return res.json(sighting);
+    } catch (err) {
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
 }
 
 module.exports = SightingsController;
